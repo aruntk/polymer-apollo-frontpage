@@ -54,10 +54,7 @@ Polymer({
       value:[]
     },
 
-    loading: {
-      type:Number,
-      value:0
-    },
+    loading: Boolean,
     postId: {
       type: Number,
       required: true,
