@@ -1,5 +1,6 @@
 import ApolloClient, { createNetworkInterface, addTypename } from 'apollo-client';
 import { PolymerApollo } from 'polymer-apollo'; 
+
 import gql from 'graphql-tag';
 // Create the apollo client
 const apolloClient = new ApolloClient({
@@ -48,18 +49,10 @@ Polymer({
 // add the created behavior in behaviors
   behaviors:[PolymerApolloBehavior],
   properties: {
-    prop1:{
-      type:Object,
-      value:{
-      message:"App",
-name:"polymer-apollo"
-      }
-    },
     posts: {
       type:Array,
       value:[]
     },
-    ping:String,
 
     loading: {
       type:Number,
@@ -69,6 +62,15 @@ name:"polymer-apollo"
       type: Number,
       required: true,
     },
+    //prop1:{
+      //type:Object,
+      //value:{
+      //message:"App",
+//name:"polymer-apollo"
+      //}
+    //},
+    //ping:String,
+
     sortedPosts:{
       type:Array,
       value:[]
@@ -83,19 +85,19 @@ name:"polymer-apollo"
       query: postsQuery,
       loadingKey: 'loading',
     },
-    ping: {
-      query: gql`query PingMessage($message: String!) {
-      ping(message: $message)
-      }`,
-      variables: {
-// properties in variables should have values with paths to element properties
-        // example
-        // limit: "route.limit"
-        message:"prop1.message"
-      },
+    //ping: {
+      //query: gql`query PingMessage($message: String!) {
+      //ping(message: $message)
+      //}`,
+      //variables: {
+////====== properties in variables should have values with paths to element properties
+        ////======= example
+        ////======= limit: "route.limit"
+        //message:"prop1.message"
+      //},
       // Additional options here
-      forceFetch: true,
-    },
+      //forceFetch: true,
+    //},
   },
   // Computed properties
   sortPosts(v) {
