@@ -1,6 +1,6 @@
 <dom-module id="polymer-apollo">
   <template>
-<style>
+    <style>
 :host {
   display: block;
 }
@@ -46,18 +46,19 @@ ul li span {
   font-size: large;
 }
 
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
+  @keyframes App-logo-spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
 
-</style>
+    </style>
     <div class="post-list">
       {{ping}}
       <template is="dom-if" if="[[loading]]">
         Loading
       </template>
       <template is="dom-if" if="[[!loading]]">
+        <paper-button on-tap="refetchPost">Refresh Query</paper-button>
         <ul>
           <template is="dom-repeat" items="{{sortedPosts}}">
             <li>

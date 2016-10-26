@@ -13,7 +13,7 @@ const apolloClient = new ApolloClient({
 });
 
 // create an instance of PolymerApollo 
-  // created instance is a polymer behavior
+// created instance is a polymer behavior
 
 const PolymerApolloBehavior = new PolymerApollo({apolloClient});
 
@@ -46,7 +46,7 @@ const upvoteMutation = gql`
 Polymer({
 
   is: 'polymer-apollo',
-// add the created behavior in behaviors
+  // add the created behavior in behaviors
   behaviors:[PolymerApolloBehavior],
   properties: {
     posts: {
@@ -60,11 +60,11 @@ Polymer({
       required: true,
     },
     //prop1:{
-      //type:Object,
-      //value:{
-      //message:"App",
-//name:"polymer-apollo"
-      //}
+    //type:Object,
+    //value:{
+    //message:"App",
+    //name:"polymer-apollo"
+    //}
     //},
     //ping:String,
 
@@ -83,17 +83,17 @@ Polymer({
       loadingKey: 'loading',
     },
     //ping: {
-      //query: gql`query PingMessage($message: String!) {
-      //ping(message: $message)
-      //}`,
-      //variables: {
-////====== properties in variables should have values with paths to element properties
-        ////======= example
-        ////======= limit: "route.limit"
-        //message:"prop1.message"
-      //},
-      // Additional options here
-      //forceFetch: true,
+    //query: gql`query PingMessage($message: String!) {
+    //ping(message: $message)
+    //}`,
+    //variables: {
+    ////====== properties in variables should have values with paths to element properties
+    ////======= example
+    ////======= limit: "route.limit"
+    //message:"prop1.message"
+    //},
+    // Additional options here
+    //forceFetch: true,
     //},
   },
   // Computed properties
@@ -111,4 +111,7 @@ Polymer({
       },
     });
   },
+  refetchPost(){
+    this.$apollo.refetch("posts");
+  }
 });
