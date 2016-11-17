@@ -1,7 +1,7 @@
 import ApolloClient, { createNetworkInterface, addTypename } from 'apollo-client';
-import { PolymerApollo } from 'polymer-apollo'; 
-
+import { PolymerApollo } from 'polymer-apollo';
 import gql from 'graphql-tag';
+
 // Create the apollo client
 const apolloClient = new ApolloClient({
   networkInterface: createNetworkInterface({
@@ -12,10 +12,10 @@ const apolloClient = new ApolloClient({
   dataIdFromObject: r => r.id,
 });
 
-// create an instance of PolymerApollo 
+// create an instance of PolymerApollo
 // created instance is a polymer behavior
 
-const PolymerApolloBehavior = new PolymerApollo({apolloClient});
+const PolymerApolloBehavior = new PolymerApollo({ apolloClient });
 
 // GraphQL query
 const postsQuery = gql`
@@ -47,11 +47,11 @@ Polymer({
 
   is: 'polymer-apollo',
   // add the created behavior in behaviors
-  behaviors:[PolymerApolloBehavior],
+  behaviors: [PolymerApolloBehavior],
   properties: {
     posts: {
-      type:Array,
-      value:[]
+      type: Array,
+      value: [],
     },
 
     loading: Boolean,
@@ -59,47 +59,46 @@ Polymer({
       type: Number,
       required: true,
     },
-    //prop1:{
-    //type:Object,
-    //value:{
-    //message:"App",
-    //name:"polymer-apollo"
-    //}
-    //},
-    //ping:String,
+    // prop1:{
+    // type:Object,
+    // value:{
+    // message:'App',
+    // name:'polymer-apollo'
+    // }
+    // },
+    // ping:String,
 
-    sortedPosts:{
-      type:Array,
-      value:[]
-    }
-
-
+    sortedPosts: {
+      type: Array,
+      value: [],
+    },
   },
-  observers:["sortPosts(posts)"],
+  observers: ['sortPosts(posts)'],
   apollo: {
     // Local state 'posts' data
     posts: {
       query: postsQuery,
       loadingKey: 'loading',
     },
-    //ping: {
-    //query: gql`query PingMessage($message: String!) {
-    //ping(message: $message)
-    //}`,
-    //variables: {
-    ////====== properties in variables should have values with paths to element properties
-    ////======= example
-    ////======= limit: "route.limit"
-    //message:"prop1.message"
-    //},
+    // ping: {
+    // query: gql`query PingMessage($message: String!) {
+    // ping(message: $message)
+    // }`,
+    // variables: {
+    // //====== properties in variables should have values with paths to element properties
+    // //======= example
+    // //======= limit: 'route.limit'
+    // message:'prop1.message'
+    // },
     // Additional options here
-    //forceFetch: true,
-    //},
+    // forceFetch: true,
+    // },
   },
   // Computed properties
   sortPosts(v) {
-    if(v)
-      this.set("sortedPosts",v.sort((x, y) => y.votes - x.votes));
+    if (v) {
+      this.set('sortedPosts', v.sort((x, y) => y.votes - x.votes));
+    }
   },
   upvote(e) {
     // Mutation
@@ -107,11 +106,11 @@ Polymer({
     this.$apollo.mutate({
       mutation: upvoteMutation,
       variables: {
-        postId: postId,
+        postId,
       },
     });
   },
-  refetchPost(){
-    this.$apollo.refetch("posts");
-  }
+  refetchPost() {
+    this.$apollo.refetch('posts');
+  },
 });
