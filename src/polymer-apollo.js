@@ -72,6 +72,10 @@ Polymer({
       type: Array,
       value: [],
     },
+    skip: {
+      type: Boolean,
+      value: true,
+    },
   },
   observers: ['sortPosts(posts)'],
   apollo: {
@@ -79,6 +83,7 @@ Polymer({
     posts: {
       query: postsQuery,
       loadingKey: 'loading',
+      // skip: 'skip',
     },
     // ping: {
     // query: gql`query PingMessage($message: String!) {
