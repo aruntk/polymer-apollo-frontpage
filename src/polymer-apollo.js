@@ -1,6 +1,6 @@
 import ApolloClient, { createNetworkInterface, addTypename } from 'apollo-client';
-import { PolymerApollo } from 'polymer-apollo';
 import gql from 'graphql-tag';
+import { PolymerApollo } from 'polymer-apollo';
 
 // Create the apollo client
 const apolloClient = new ApolloClient({
@@ -32,7 +32,6 @@ const postsQuery = gql`
     }
   }
 `;
-
 const upvoteMutation = gql`
   mutation upvotePost($postId: Int!) {
     upvotePost(postId: $postId) {
@@ -42,9 +41,7 @@ const upvoteMutation = gql`
   }
 `;
 
-
 Polymer({
-
   is: 'polymer-apollo',
   // add the created behavior in behaviors
   behaviors: [PolymerApolloBehavior],
@@ -78,12 +75,20 @@ Polymer({
     },
   },
   observers: ['sortPosts(posts)'],
+  computedFn(s) {
+    return {
+      skip: s,
+    };
+  },
+  unskip() {
+    this.set('skip', false);
+  },
   apollo: {
     // Local state 'posts' data
     posts: {
       query: postsQuery,
       loadingKey: 'loading',
-      // skip: 'skip',
+      options: 'computedFn(skip)',
     },
     // ping: {
     // query: gql`query PingMessage($message: String!) {

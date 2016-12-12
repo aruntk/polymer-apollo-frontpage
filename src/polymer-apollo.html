@@ -54,6 +54,9 @@ ul li span {
     </style>
     <div class="post-list">
       {{ping}}
+      <paper-button hidden="[[!skip]]" on-tap="unskip">
+        Show Posts
+      </paper-button>
       <template is="dom-if" if="[[loading]]">
         Loading
       </template>
