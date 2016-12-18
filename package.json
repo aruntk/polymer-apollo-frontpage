@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "apollo-client": "^0.5.0",
-    "polymer-apollo": "^1.1.6"
+    "polymer-apollo": "^1.1.20"
   },
   "devDependencies": {
     "babel-core": "^6.0.0",
