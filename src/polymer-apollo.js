@@ -1,4 +1,4 @@
-import ApolloClient, { createNetworkInterface, addTypename } from 'apollo-client';
+import ApolloClient, { createNetworkInterface } from 'apollo-client';
 import gql from 'graphql-tag';
 import { PolymerApollo } from 'polymer-apollo';
 
@@ -8,7 +8,6 @@ const apolloClient = new ApolloClient({
     uri: 'http://localhost:8080/graphql',
     transportBatching: true,
   }),
-  queryTransformer: addTypename,
   dataIdFromObject: r => r.id,
 });
 
@@ -107,7 +106,10 @@ Polymer({
   // Computed properties
   sortPosts(v) {
     if (v) {
-      this.set('sortedPosts', v.sort((x, y) => y.votes - x.votes));
+      const unsorted = v.slice(0);
+      this.set('sortedPosts', unsorted.sort((x, y) => {
+        return y.votes - x.votes
+      }));
     }
   },
   upvote(e) {
