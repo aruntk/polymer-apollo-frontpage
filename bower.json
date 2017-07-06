@@ -1,0 +1,21 @@
+{
+  "name": "polymer-apollo-frontpage",
+  "description": "polymer apollo demo",
+  "main": "",
+  "authors": [
+    "Arun Kumar TK <aruntknambiar@gmail.com>"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/aruntk/polymer-apollo-frontpage",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "polymer": "^2.0.1",
+    "paper-button": "^2.0.0"
+  }
+}

@@ -1,6 +1,6 @@
-import ApolloClient, { createNetworkInterface } from 'apollo-client';
 import gql from 'graphql-tag';
-import { PolymerApollo } from 'polymer-apollo';
+import { PolymerApolloMixin } from 'polymer-apollo';
+import ApolloClient, { createNetworkInterface, addTypename } from 'apollo-client';
 
 // Create the apollo client
 const apolloClient = new ApolloClient({
@@ -13,8 +13,6 @@ const apolloClient = new ApolloClient({
 
 // create an instance of PolymerApollo
 // created instance is a polymer behavior
-
-const PolymerApolloBehavior = new PolymerApollo({ apolloClient });
 
 // GraphQL query
 const postsQuery = gql`
@@ -40,69 +38,85 @@ const upvoteMutation = gql`
   }
 `;
 
-Polymer({
-  is: 'polymer-apollo',
-  // add the created behavior in behaviors
-  behaviors: [PolymerApolloBehavior],
-  properties: {
-    posts: {
-      type: Array,
-      value: [],
-    },
+export class PolymerApolloElement extends PolymerApolloMixin({ apolloClient }, Polymer.Element) {
+// export class PolymerApolloElement extends Polymer.Element {
+  constructor() {
+    super();
+  }
+  static get is() {
+    return 'polymer-apollo';
+  }
+  connectedCallback() {
+    super.connectedCallback();
+  }
+  disconnectedCallback() {
+    super.disconnectedCallback();
+  }
+  static get properties() {
+    return {
+      posts: {
+        type: Array,
+        value: [],
+      },
 
-    loading: Boolean,
-    postId: {
-      type: Number,
-      required: true,
-    },
-    // prop1:{
-    // type:Object,
-    // value:{
-    // message:'App',
-    // name:'polymer-apollo'
-    // }
-    // },
-    // ping:String,
+      loading: Boolean,
+      postId: {
+        type: Number,
+        required: true,
+      },
+      // prop1:{
+      // type:Object,
+      // value:{
+      // message:'App',
+      // name:'polymer-apollo'
+      // }
+      // },
+      // ping:String,
 
-    sortedPosts: {
-      type: Array,
-      value: [],
-    },
-    skip: {
-      type: Boolean,
-      value: true,
-    },
-  },
-  observers: ['sortPosts(posts)'],
+      sortedPosts: {
+        type: Array,
+        value: [],
+      },
+      skip: {
+        type: Boolean,
+        value: true,
+      },
+    };
+  }
+  static get observers() {
+    return ['sortPosts(posts)'];
+  }
   computedFn(s) {
     return {
       skip: s,
     };
-  },
+  }
   unskip() {
     this.set('skip', false);
-  },
-  apollo: {
-    // Local state 'posts' data
-    posts: {
-      query: postsQuery,
-      loadingKey: 'loading',
-      options: 'computedFn(skip)',
-    },
-    // ping: {
-    // query: gql`query PingMessage($message: String!) {
-    // ping(message: $message)
-    // }`,
-    // variables: {
-    // //====== properties in variables should have values with paths to element properties
-    // //======= example
-    // //======= limit: 'route.limit'
-    // message:'prop1.message'
-    // },
-    // Additional options here
-    // forceFetch: true,
-    // },
-  },
+  }
+  get apollo() {
+    return {
+      // Local state 'posts' data
+      posts: {
+        query: postsQuery,
+        loadingKey: 'loading',
+        options: 'computedFn(skip)',
+      },
+      // ping: {
+      // query: gql`query PingMessage($message: String!) {
+      // ping(message: $message)
+      // }`,
+      // variables: {
+      // //====== properties in variables should have values with paths to element properties
+      // //======= example
+      // //======= limit: 'route.limit'
+      // message:'prop1.message'
+      // },
+      // Additional options here
+      // forceFetch: true,
+      // },
+    };
+  }
   // Computed properties
   sortPosts(v) {
     if (v) {
@@ -111,7 +125,7 @@ Polymer({
         return y.votes - x.votes
       }));
     }
-  },
+  }
   upvote(e) {
     // Mutation
     const postId = e.model.item.id;
@@ -121,8 +135,10 @@ Polymer({
         postId,
       },
     });
-  },
+  }
   refetchPost() {
     this.$apollo.refetch('posts');
-  },
-});
+  }
+};
+// console.log(PolymerApolloElement);
+customElements.define('polymer-apollo', PolymerApolloElement);

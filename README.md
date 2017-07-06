@@ -21,10 +21,12 @@ This app talks to the hello world server, available here: https://github.com/apo
 Once you've installed and started that server, start this app with:
 
 ```
+bower install
 npm start
 ```
 
 It will open a browser window, or you can browse to http://localhost:3000.
+
 
 
 
